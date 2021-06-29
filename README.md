@@ -53,35 +53,44 @@ Would you like to install them now with npm?
 =>Yes
 
 ## para analizar o arquivo ou diretorio
+
 node_modules/.bin/eslint index.js
 
 node_modules/.bin/eslint nomeDiretorio/**
 ## para corrigir algum erro automaticamente.
+
 node_modules/.bin/eslint index.js --fix
 
 node_modules/.bin/eslint nomeDiretorio/**  --fix
 
 ## instalar o plugin ESLint
+
 para mostrar os erro enquanto está codando.
 
 ## para alterar alguma regra.
+
 =>abrir o arquivo .eslintrc.json e desativar lá as regras.
 
 # instalar Cypress
 
 versão usada no curso
-npm install cypress@3.6.0
+
+- npm install cypress@3.6.0
 
 versão mais atual
-npm install cypress 
+- npm install cypress 
 
-abrir Cypress
+## abrir Cypress
+
 ir no arquivo package.json
+
 no script adicionar
-"cypress:open": "cypress open"
+
+=>"cypress:open": "cypress open"
 
 rodar no terminal
-npm run cypress:open
+
+- npm run cypress:open
 
 documentação Cypress
 https://docs.cypress.io/guides/overview/why-cypress
