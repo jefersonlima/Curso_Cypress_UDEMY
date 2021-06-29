@@ -1,0 +1,27 @@
+{
+  "name": "Curso_Cypress_UDEMY",
+  "version": "1.0.0",
+  "description": "Curso de Teste funcionais, Testes de Backend e Testes de Frontend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cypress:open": "cypress open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jefersonlima/Curso_Cypress_UDEMY.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jefersonlima/Curso_Cypress_UDEMY/issues"
+  },
+  "homepage": "https://github.com/jefersonlima/Curso_Cypress_UDEMY#readme",
+  "devDependencies": {
+    "eslint": "^7.29.0"
+  },
+  "dependencies": {
+    "cypress": "^3.6.0"
+  }
+}
