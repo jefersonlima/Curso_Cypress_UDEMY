@@ -34,25 +34,25 @@ describe('Work with basic elements', () => {
         cy.get('#formNome').should('have.value', 'Cypress Test')
 
         cy.get('#elementosForm\\:sugestoes')
-        .type('textarea')
-        .should('have.value', 'textarea')
+            .type('textarea')
+            .should('have.value', 'textarea')
 
         cy.get('#tabelaUsuarios > :nth-child(2) > :nth-child(1) > :nth-child(6) > input')
-        .type('???')
+            .type('???')
 
         cy.get('[data-cy=dataSobrenome]')
-        .type('Teste12345{backspace}{backspace}')
+            .type('Teste12345{backspace}{backspace}')
 
         cy.get('#elementosForm\\:sugestoes')
-        .clear()
-        .type('Erro{selectall}acerto')
-        .should('have.value', 'acerto', {delay: 100})
+            .clear()
+            .type('Erro{selectall}acerto')
+            .should('have.value', 'acerto', {delay: 100})
     })
 
     it('RadioButton', () => {
         cy.get('#formSexoFem')
-        .click()
-        .should('be.checked')
+            .click()
+            .should('be.checked')
 
         cy.get('#formSexoMasc').should('not.be.checked')
 
@@ -60,16 +60,26 @@ describe('Work with basic elements', () => {
 
     })
 
-    it.only('Checkbox', () => {
+    it('Checkbox', () => {
         cy.get('#formComidaPizza')
-        .click()
-        .should('be.checked')
+            .click()
+            .should('be.checked')
 
         cy.get('[name=formComidaFavorita]')
-        .click({ multiple: true } )
+            .click({ multiple: true } )
         cy.get('#formComidaPizza')
-        .should('not.be.checked')
+            .should('not.be.checked')
         cy.get('#formComidaVegetariana')
-        .should('be.checked')
+            .should('be.checked')
+    })
+
+    it.only('ComboBox', () => {
+        cy.get('[data-test=dataEscolaridade]')
+            .select('2o grau completo')
+            .should('have.value', '2graucomp')
+
+        cy.get('[data-test=dataEscolaridade]')
+            .select('1graucomp')
+            .should('have.value', '1graucomp')
     })
 })
