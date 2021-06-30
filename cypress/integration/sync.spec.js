@@ -18,5 +18,13 @@ describe('Esperas... ', () => {
         
         cy.get('#novoCampo').type('funciona')
     })
+
+    it.only('Deve Fazer retrys', () => {
+        cy.get('#buttonDelay').click()
+        cy.get('#novoCampo')
+            //.should('not.exist')
+            .should('exist')
+            .type('Funciona')
+    })
     
 })
