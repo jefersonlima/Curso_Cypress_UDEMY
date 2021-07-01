@@ -34,4 +34,17 @@ describe('Helpers...', () => {
             return 2
         }).should('be.equal', 2)
     })
+
+    it.only('Its...', () => {
+        const obj1 = { nome: 'User', idade: 20 }
+        cy.wrap(obj1).should('have.property', 'nome', 'User')
+        cy.wrap(obj1).its('nome').should('be.equal', 'User')
+
+        const obj2 = { nome: 'User', idade: 20, endereco: { rua: 'dos bobos'} }
+        cy.wrap(obj2).its('endereco').should('have.property', 'rua')
+        cy.wrap(obj2).its('endereco').its('rua').should('contain', 'bobos')
+        cy.wrap(obj2).its('endereco.rua').should('contain', 'bobos')
+
+        cy.title().its('length').should('be.equal', 20)
+    })
 })
