@@ -41,7 +41,7 @@ describe('Esperas... ', () => {
             .should('contain', 'Item 2')
     })
 
-    it.only('Uso do find DOM', () => {
+    it('Uso do find DOM', () => {
         cy.get('#buttonListDOM').click()
         cy.get('#lista li')
             .find('span')
@@ -53,6 +53,23 @@ describe('Esperas... ', () => {
         
         cy.get('#lista li span')
             .should('contain', 'Item 2')
+    })
+
+    it.only('Uso do tumeout', () => {
+        // cy.get('#buttonDelay').click()
+        // cy.get('#novoCampo', { timeout: 1000 }).should('exist')
+
+        // cy.get('#buttonListDOM').click()
+        // //cy.wait(5000) // evitar usar wait
+        // cy.get('#lista li span', { timeout: 30000 }) //preferir usar o timeout ao invés do wait
+        //     .should('contain','Item 2')
+
+        cy.get('#buttonListDOM').click()
+        cy.get('#lista li span') //preferir usar o timeout ao invés do wait
+            .should('have.length', 1)
+        cy.get('#lista li span')
+            .should('have.length', 2)
+        
     })
     
 })
