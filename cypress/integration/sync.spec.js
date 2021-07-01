@@ -19,12 +19,40 @@ describe('Esperas... ', () => {
         cy.get('#novoCampo').type('funciona')
     })
 
-    it.only('Deve Fazer retrys', () => {
+    it('Deve Fazer retrys', () => {
         cy.get('#buttonDelay').click()
         cy.get('#novoCampo')
             //.should('not.exist')
             .should('exist')
             .type('Funciona')
+    })
+
+    it('Uso do find', () => {
+        cy.get('#buttonList').click()
+        cy.get('#lista li')
+            .find('span')
+            .should('contain', 'Item 1')
+        
+        // cy.get('#lista li')
+        //     .find('span')
+        //     .should('contain', 'Item 2')
+        
+        cy.get('#lista li span')
+            .should('contain', 'Item 2')
+    })
+
+    it.only('Uso do find DOM', () => {
+        cy.get('#buttonListDOM').click()
+        cy.get('#lista li')
+            .find('span')
+            .should('contain', 'Item 1')
+        
+        // cy.get('#lista li')
+        //     .find('span')
+        //     .should('contain', 'Item 2')
+        
+        cy.get('#lista li span')
+            .should('contain', 'Item 2')
     })
     
 })
