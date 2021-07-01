@@ -8,13 +8,21 @@ describe('Cypress basics', () => {
         cy.title().should('be.equal', 'Campo de Treinamento')
         cy.title().debug().should('contain', 'Campo')
 
-        cy.title()
-            .should('be.equal', 'Campo de Treinamento')
-            .should('contain', 'Campo')
+        // cy.title()
+        //     .should('be.equal', 'Campo de Treinamento')
+        //     .should('contain', 'Campo')
 
         cy.title()
             .should('be.equal', 'Campo de Treinamento')
             .and('contain', 'Campo')
+
+        cy.title().then(title => {
+            console.log(title)
+        })
+
+        cy.title().should(title => {
+            console.log(title)
+        })
 
         // TODO imprimir o log no console
         // TODO esvrever o log em um campo de texto
