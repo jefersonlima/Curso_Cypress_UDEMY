@@ -72,11 +72,41 @@ describe('Esperas... ', () => {
         
     })
 
-    it.only('Click Retry', () => {
+    it('Click Retry', () => {
         cy.get('#buttonCount')
             .click()
             .click()
             .should('have.value', '111')
     })
+
+    it.only('Should vs Then', () => {
+        //cy.get('#buttonListDOM').click()
+        
+        // then aguarda o get finalizar
+        // cy.get('#buttonListDOM').then($el => {
+        //     //.should('have.length', 1)
+        //     //console.log($el)
+        //     expect($el).to.have.length(1)
+        //     return 2
+        // }).and('eq', 2)
+        // .and('not.have.id', 'buttonListDOM')
+
+        // should fica executando 
+        // cy.get('#buttonListDOM').should($el => {
+        //     //.should('have.length', 1)
+        //     expect($el).to.have.length(1)
+        // })
+
+
+        cy.get('#buttonListDOM').then($el => {
+            //.should('have.length', 1)
+            //console.log($el)
+            expect($el).to.have.length(1)
+            cy.get('#buttonList')
+        })
+
+        
+    })
+
     
 })
