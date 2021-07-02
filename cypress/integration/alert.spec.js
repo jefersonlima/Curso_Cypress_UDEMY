@@ -42,7 +42,7 @@ describe('Work with basic elements', () => {
         cy.get('#confirm').click()
     })
 
-    it.only('Deny...', () =>{
+    it('Deny...', () =>{
         cy.on('window:confirm', msg => {
             expect(msg).to.be.equal('Confirm Simples')
             return false
@@ -53,6 +53,22 @@ describe('Work with basic elements', () => {
         })
         
         cy.get('#confirm').click()
+    })
+
+    it.only('Prompt...', () => {
+        cy.window().then( win => {
+            cy.stub(win, 'prompt').returns('42')
+        })
+        
+        cy.on('window:confirm', msg => {
+            expect(msg).to.be.equal('Era 42?')
+        })
+
+        cy.on('window:alert', msg => {
+            expect(msg).to.be.equal(':D')
+        })
+
+        cy.get('#prompt').click()
     })
 
 })
