@@ -95,4 +95,13 @@ rodar no terminal
 documentação Cypress
 https://docs.cypress.io/guides/overview/why-cypress
 
+# Instalando Plugins cypress-spath
+
+- npm install  cypress-xpath
+
+no arquivo support/index.js apos o import './commands' coloque
+
+- request('cypress-xpath')
+
+
 # pronto para iniciar a codar.
