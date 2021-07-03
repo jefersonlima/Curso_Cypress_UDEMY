@@ -11,12 +11,14 @@ describe('Work with basic elements', () => {
         cy.reload()
     })
 
-    it('Alert...', () =>{
-        cy.get('#alert').click()
-        cy.on('window:alert', msg => {
-            console.log(msg)
-            expect(msg).to.be.equal('Alert Simples')
-        })
+    it.only('Alert...', () =>{
+        // cy.get('#alert').click()
+        // cy.on('window:alert', msg => {
+        //     console.log(msg)
+        //     expect(msg).to.be.equal('Alert Simples')
+        // })
+
+        cy.clickAlert('#alert','Alert Simples')
     })
 
     it('Alert com Mock...', () =>{
@@ -71,7 +73,7 @@ describe('Work with basic elements', () => {
         cy.get('#prompt').click()
     })
 
-    it.only('Desafio...', () => {
+    it('Desafio...', () => {
         // Minha Resolucao deu certo mas foi mais trabalhoso
         // // cy.on('window:alert', msg => {
         // //     expect(msg).to.be.equal('Nome eh obrigatorio')
