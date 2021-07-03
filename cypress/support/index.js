@@ -18,3 +18,18 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// definindo as ordem de precedencia de pesquisa do cypress
+Cypress.SelectorPlayground.defaults({
+    selectorPriority: [
+        'data-wc', // exemplo de personalizacao
+        'id', 
+        'class', 
+        'attributes',
+        'data-cy',
+        'data-test',
+        'data-testid',
+        'tag',
+        'nth-child'
+    ]
+})
