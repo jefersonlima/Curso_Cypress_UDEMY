@@ -95,13 +95,17 @@ rodar no terminal
 documentação Cypress
 https://docs.cypress.io/guides/overview/why-cypress
 
-# Instalando Plugins cypress-spath
+# Instalando Plugins cypress-xpath
 
 - npm install  cypress-xpath
 
 no arquivo support/index.js apos o import './commands' coloque
 
-- request('cypress-xpath')
+- require('cypress-xpath')
+
+documentacao xpath
+
+https://www.red-gate.com/simple-talk/development/dotnet-development/xpath-css-dom-and-selenium-the-rosetta-stone/
 
 
 # pronto para iniciar a codar.
