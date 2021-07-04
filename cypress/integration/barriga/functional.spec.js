@@ -22,4 +22,17 @@ describe('Should test at a functional level', () => {
         cy.get('.toast-success > .toast-message').should('contain', 'Conta inserida com sucesso')
     }) 
 
+    it('Alter acount', () => {
+        cy.get('[data-test=menu-settings] > .fas').click()
+        cy.get('[href="/contas"]').click()
+        cy.xpath("//table//td[contains(., 'Conta test create')]/..//i[@class='far fa-edit']")
+            .click()
+ 
+        cy.get('[data-test=nome]')
+        .clear()
+        .type('Acount test create')
+        cy.get('.btn').click()
+        cy.get('.toast-message').should('contain', 'Conta atualizada com sucesso!')
+    })
+
 })
