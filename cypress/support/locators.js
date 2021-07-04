@@ -5,8 +5,9 @@ const locators = {
         BTN_LOGIN: '.btn'
     },
     MENU: {
-        SETTINGS: '[data-test=menu-settings] > .fas',
-        CONTAS: '[href="/contas"]'
+        SETTINGS: '[data-test=menu-settings]',
+        CONTAS: '[href="/contas"]',
+        RESET: '[href="/reset"]'
     },
     CONTAS: {
         NOME: '[data-test=nome]',
