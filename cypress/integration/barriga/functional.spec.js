@@ -13,8 +13,13 @@ describe('Should test at a functional level', () => {
         cy.get('.toast-message').should('contain', 'Bem vindo')
     })
 
-    it('Login', () => {
-        
-    })
+    it('Should create an acount', () => {
+        cy.get('[data-test=menu-settings] > .fas').click()
+        cy.get('[href="/contas"]').click()
+        cy.get('[data-test=nome]').type('Conta test create')
+        cy.get('.btn').click()
+        //cy.get('.toast-success > .toast-message').should('exist')
+        cy.get('.toast-success > .toast-message').should('contain', 'Conta inserida com sucesso')
+    }) 
 
 })
