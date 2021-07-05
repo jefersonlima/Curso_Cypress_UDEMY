@@ -8,8 +8,9 @@ describe('Should test at a functional level', () => {
     before(() => {
         cy.login('jefersonlimadesouza@hotmail.com.br', '11080822')
         cy.resetApp()
+        cy.wait(2000)
     })
-
+    
     it('Should create an acount', () => {
         cy.acessarMenuConta()
         cy.inserirConta('Conta test create')
@@ -20,7 +21,7 @@ describe('Should test at a functional level', () => {
     it('Alter acount', () => {
         cy.acessarMenuConta()
 
-        cy.xpath(loc.CONTAS.XP_BTN_ALTERAR).click()
+        cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Conta test create')).click()
  
         cy.get(loc.CONTAS.NOME)
             .clear()
@@ -43,6 +44,8 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MOVIMENTACAO.DESCRICAO).type('Desc')
         cy.get(loc.MOVIMENTACAO.VALOR).type('123')
         cy.get(loc.MOVIMENTACAO.INTERESSADO).type('Inter')
+        cy.get(loc.MOVIMENTACAO.CONTA).select('Conta test create')
+        cy.get(loc.MOVIMENTACAO.STATUS).click()
 
         cy.get(loc.MOVIMENTACAO.BTN_SALVAR).click()
 
@@ -50,8 +53,14 @@ describe('Should test at a functional level', () => {
 
         cy.get(loc.EXTRATO.LINHAS).should('have.length', 7)
 
-        cy.xpath(loc.EXTRATO.XP_BUSCA_ELEMENTO)
+        cy.xpath(loc.EXTRATO.FN_XP_BUSCA_ELEMENTO('Desc','123'))
             .should('exist')
+    })
+
+    it('Should get balance', () => {
+        console.log(loc.SALDO.FN_XP_SALDO_CONTA('Conta test create'))
+        cy.get(loc.MENU.HOME).click()
+        cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta test create')).should('contain', '123')
     })
 
 })
