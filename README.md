@@ -110,4 +110,8 @@ https://www.red-gate.com/simple-talk/development/dotnet-development/xpath-css-do
 # informativos
 
 https://www.cypress.io/blog/2019/01/03/stop-using-page-objects-and-start-using-app-actions/
+
+https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods
+
+https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
 # pronto para iniciar a codar.
