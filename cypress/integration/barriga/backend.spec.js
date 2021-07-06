@@ -11,13 +11,13 @@ describe('Should test at a functional level', () => {
     })
     
     beforeEach(() => {
-        
+        cy.resetRest(token)
     })
     
     it('Should create an acount', () => {
         
         cy.request({
-            url: 'https://barrigarest.wcaquino.me/contas',
+            url: '/contas',
             method: 'POST',
             headers: { Authorization: `JWT ${token}`},
             //headers: { Authorization: `bearer ${token}`},//novas versoes
