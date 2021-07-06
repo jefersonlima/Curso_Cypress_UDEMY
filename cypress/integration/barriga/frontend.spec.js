@@ -42,15 +42,56 @@ describe('Should test at a functional level', () => {
     
     beforeEach(() => {
         cy.get(loc.MENU.HOME).click()
-        cy.resetApp()
+        //cy.resetApp()
     })
 
-
     
-    it('Should create an acount', () => {
+    it.only('Should create an acount', () => {
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [{
+                id: 1,
+                nome:"Carteira",
+                visivel:true,
+                usuario_id:1
+            },
+                {id:2,
+                nome:"Banco",
+                visivel:true,
+                usuario_id:1
+            }]
+        }).as('contas')
+
+        cy.route({
+            method: 'POST',
+            url: '/contas',
+            response: {id:3,nome:"Conta de teste",visivel:true,usuario_id:1}
+        }).as('SaveConta')
+
         cy.acessarMenuConta()
-        cy.inserirConta('Conta test create')
- 
+
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [{
+                id: 1,
+                nome:"Carteira",
+                visivel:true,
+                usuario_id:1
+            },
+                {id:2,
+                nome:"Banco",
+                visivel:true,
+                usuario_id:1
+            },
+                {id:3,
+                nome:"Conta de testeo",
+                visivel:true,
+                usuario_id:1
+            }]
+        }).as('contasSave')
+        cy.inserirConta('Conta de teste')
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
     }) 
 
@@ -93,7 +134,7 @@ describe('Should test at a functional level', () => {
         .should('exist')
     })
     
-    it.only('Should get balance', () => {
+    it('Should get balance', () => {
         cy.resetApp()
         cy.get(loc.MENU.HOME).click()
         cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta para saldo')).should('contain', '534,00')
