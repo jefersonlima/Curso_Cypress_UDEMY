@@ -4,6 +4,9 @@ import loc from '../../support/locators'
 import '../../support/commandsContas'
 
 describe('Should test at a functional level', () => {
+    after(() => {
+        cy.clearLocalStorage()
+    })
     //vai execultar uma vez antes de todos os testes
     before(() => {
         cy.server()
@@ -32,7 +35,7 @@ describe('Should test at a functional level', () => {
             }
             ]
         }).as('saldo')
-        
+
         cy.login('jefersonlimadesouza@hotmail.com.br', 'senha errada')
         cy.wait(1000)
     })
