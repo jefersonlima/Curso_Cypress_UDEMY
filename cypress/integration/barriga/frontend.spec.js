@@ -103,7 +103,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'code 400')
     })
 
-    it.only('Should create a transaction', () => {
+    it('Should create a transaction', () => {
         cy.route({
             method: 'POST',
             url: '/transacoes',
@@ -115,7 +115,6 @@ describe('Should test at a functional level', () => {
         url: '/extrato/**',
         response: 'fixture:movimentacaoSalva'
         })
-        
         
         cy.get(loc.MENU.MOVIMENTACAO).click();
         
@@ -132,10 +131,52 @@ describe('Should test at a functional level', () => {
         .should('exist')
     })
     
-    it('Should get balance', () => {
+    it.only('Should get balance', () => {
+        cy.route({
+            method: 'GET',
+            url: '/transacoes/**',
+            response: {
+                "conta": "Conta para saldo",
+                "id": 626873,
+                "descricao": "Movimentacao 1, calculo saldo",
+                "envolvido": "CCC",
+                "observacao": null,
+                "tipo": "REC",
+                "data_transacao": "2021-07-06T03:00:00.000Z",
+                "data_pagamento": "2021-07-06T03:00:00.000Z",
+                "valor": "3500.00",
+                "status": false,
+                "conta_id": 676156,
+                "usuario_id": 22418,
+                "transferencia_id": null,
+                "parcelamento_id": null
+            }
+        })
+        
+        cy.route({
+            method: 'PUT',
+            url: '/transacoes/**',
+            response: {
+                "conta": "Conta para saldo",
+                "id": 626873,
+                "descricao": "Movimentacao 1, calculo saldo",
+                "envolvido": "CCC",
+                "observacao": null,
+                "tipo": "REC",
+                "data_transacao": "2021-07-06T03:00:00.000Z",
+                "data_pagamento": "2021-07-06T03:00:00.000Z",
+                "valor": "3500.00",
+                "status": false,
+                "conta_id": 676156,
+                "usuario_id": 22418,
+                "transferencia_id": null,
+                "parcelamento_id": null
+            }
+        })
+        
         cy.resetApp()
         cy.get(loc.MENU.HOME).click()
-        cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta para saldo')).should('contain', '534,00')
+        cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Carteira')).should('contain', '100,00')
         
         cy.get(loc.MENU.EXTRATO).click()
         
@@ -150,8 +191,25 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
         //Colocado esse wait prq estava execultando meuito rapido e não dava tempo de pegar o retorno
         cy.wait(1000)
+
+        cy.route({
+            method: 'GET',
+            url: '/saldo',
+            response: [{
+                conta_id: 999,
+                conta: "Carteira",
+                saldo: "4034.00"
+            },
+            {
+                conta_id: 9909,
+                conta: "Banco",
+                saldo: "10000000.00"
+            }
+            ]
+        }).as('saldoFinal')
+
         cy.get(loc.MENU.HOME).click()
-        cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta para saldo')).should('contain', '4.034,00')
+        cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Carteira')).should('contain', '4.034,00')
         
     })
 
