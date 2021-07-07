@@ -2,45 +2,17 @@
 
 import loc from '../../support/locators'
 import '../../support/commandsContas'
+import buildEnv from '../../support/buildEnv'
 
 describe('Should test at a functional level', () => {
     after(() => {
         cy.clearLocalStorage()
     })
-    //vai execultar uma vez antes de todos os testes
-    before(() => {
-        cy.server()
-        cy.route({
-            method: 'POST',
-            url: '/signin',
-            response: {
-                id: 1000,
-                nome: 'Usuario falso',
-                token: 'Uma string muito grande que nao deveria ser aceito mas vai'
-            }
-        }).as('signin')
-
-        cy.route({
-            method: 'GET',
-            url: '/saldo',
-            response: [{
-                conta_id: 999,
-                conta: "Carteira",
-                saldo: "100.00"
-            },
-            {
-                conta_id: 9909,
-                conta: "Banco",
-                saldo: "10000000.00"
-            }
-            ]
-        }).as('saldo')
-
-        cy.login('jefersonlimadesouza@hotmail.com.br', 'senha errada')
-        cy.wait(1000)
-    })
     
     beforeEach(() => {
+        buildEnv()
+        cy.login('jefersonlimadesouza@hotmail.com.br', 'senha errada')
+        cy.wait(1000)
         cy.get(loc.MENU.HOME).click()
         //cy.resetApp()
     })
@@ -95,23 +67,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
     }) 
 
-    it.only('Alter acount', () => {
-        cy.route({
-            method: 'GET',
-            url: '/contas',
-            response: [{
-                id: 1,
-                nome:"Carteira",
-                visivel:true,
-                usuario_id:1
-            },
-                {id:2,
-                nome:"Banco",
-                visivel:true,
-                usuario_id:1
-            }]
-        }).as('contas')
-
+    it('Alter acount', () => {
         cy.route({
             method: 'PUT',
             url: '/contas/**',
