@@ -88,7 +88,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta atualizada com sucesso!')
     })
 
-    it.only('Should not create an account with same name', () => {
+    it('Should not create an account with same name', () => {
         cy.route({
             method: 'POST',
             url: '/contas',
@@ -103,21 +103,39 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'code 400')
     })
 
-    it('Should create a transaction', () => {
+    it.only('Should create a transaction', () => {
+        cy.route({
+            method: 'POST',
+            url: '/transacoes',
+            response: {"id":626870,"descricao":"adfasdf","envolvido":"adfasd","observacao":null,"tipo":"REC","data_transacao":"2021-07-06T03:00:00.000Z","data_pagamento":"2021-07-06T03:00:00.000Z","valor":"232.00","status":false,"conta_id":676085,"usuario_id":22418,"transferencia_id":null,"parcelamento_id":null}
+        })
+
+        cy.route({
+        method: 'GET',
+        url: '/extrato/**',
+        response: [
+            {"conta":"Conta para movimentacoes","id":626871,"descricao":"Movimentacao para exclusao","envolvido":"AAA","observacao":null,"tipo":"DESP","data_transacao":"2021-07-06T03:00:00.000Z","data_pagamento":"2021-07-06T03:00:00.000Z","valor":"-1500.00","status":true,"conta_id":676154,"usuario_id":22418,"transferencia_id":null,"parcelamento_id":null},
+            {"conta":"Conta com movimentacao","id":626872,"descricao":"Movimentacao de conta","envolvido":"BBB","observacao":null,"tipo":"DESP","data_transacao":"2021-07-06T03:00:00.000Z","data_pagamento":"2021-07-06T03:00:00.000Z","valor":"-1500.00","status":true,"conta_id":676155,"usuario_id":22418,"transferencia_id":null,"parcelamento_id":null},
+            {"conta":"Conta para saldo","id":626873,"descricao":"Movimentacao 1, calculo saldo","envolvido":"CCC","observacao":null,"tipo":"REC","data_transacao":"2021-07-06T03:00:00.000Z","data_pagamento":"2021-07-06T03:00:00.000Z","valor":"3500.00","status":false,"conta_id":676156,"usuario_id":22418,"transferencia_id":null,"parcelamento_id":null},
+            {"conta":"Conta para saldo","id":626874,"descricao":"Movimentacao 2, calculo saldo","envolvido":"DDD","observacao":null,"tipo":"DESP","data_transacao":"2021-07-06T03:00:00.000Z","data_pagamento":"2021-07-06T03:00:00.000Z","valor":"-1000.00","status":true,"conta_id":676156,"usuario_id":22418,"transferencia_id":null,"parcelamento_id":null},
+            {"conta":"Conta para saldo","id":626875,"descricao":"Movimentacao 3, calculo saldo","envolvido":"EEE","observacao":null,"tipo":"REC","data_transacao":"2021-07-06T03:00:00.000Z","data_pagamento":"2021-07-06T03:00:00.000Z","valor":"1534.00","status":true,"conta_id":676156,"usuario_id":22418,"transferencia_id":null,"parcelamento_id":null},
+            {"conta":"Conta para extrato","id":626876,"descricao":"Movimentacao para extrato","envolvido":"FFF","observacao":null,"tipo":"DESP","data_transacao":"2021-07-06T03:00:00.000Z","data_pagamento":"2021-07-06T03:00:00.000Z","valor":"-220.00","status":true,"conta_id":676157,"usuario_id":22418,"transferencia_id":null,"parcelamento_id":null},
+            {"conta":"Conta para extrato","id":626873,"descricao":"Desc","envolvido":"FFF","observacao":null,"tipo":"DESP","data_transacao":"2021-07-06T03:00:00.000Z","data_pagamento":"2021-07-06T03:00:00.000Z","valor":"123.00","status":true,"conta_id":676157,"usuario_id":22418,"transferencia_id":null,"parcelamento_id":null}
+            ]
+        })
+        
+        
         cy.get(loc.MENU.MOVIMENTACAO).click();
         
         cy.get(loc.MOVIMENTACAO.DESCRICAO).type('Desc')
         cy.get(loc.MOVIMENTACAO.VALOR).type('123')
         cy.get(loc.MOVIMENTACAO.INTERESSADO).type('Inter')
-        cy.get(loc.MOVIMENTACAO.CONTA).select('Conta para movimentacoes')
+        cy.get(loc.MOVIMENTACAO.CONTA).select('Banco')
         cy.get(loc.MOVIMENTACAO.STATUS).click()
-        
         cy.get(loc.MOVIMENTACAO.BTN_SALVAR).click()
-        
         cy.get(loc.MESSAGE).should('contain', 'sucesso')
         
         cy.get(loc.EXTRATO.LINHAS).should('have.length', 7)
-        
         cy.xpath(loc.EXTRATO.FN_XP_BUSCA_ELEMENTO('Desc','123'))
         .should('exist')
     })
