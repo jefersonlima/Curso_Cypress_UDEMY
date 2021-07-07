@@ -17,6 +17,16 @@ describe('Should test at a functional level', () => {
         //cy.resetApp()
     })
 
+    it('Should test the responsiveness', () => {
+        cy.get('[data-test=menu-home]').should('exist').and('be.visible')
+        cy.viewport(500, 700)
+        cy.get('[data-test=menu-home]').should('exist').and('be.not.visible')
+        cy.viewport('iphone-5')
+        cy.get('[data-test=menu-home]').should('exist').and('be.not.visible')
+        cy.viewport('ipad-2')
+        cy.get('[data-test=menu-home]').should('exist').and('be.visible')
+    })
+
     
     it('Should create an acount', () => {
         cy.route({
@@ -276,7 +286,7 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
     })
     
-    it.only('Should test colors', () => {
+    it('Should test colors', () => {
         cy.route({
         method: 'GET',
         url: '/extrato/**',
