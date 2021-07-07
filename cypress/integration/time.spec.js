@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe('Work with Clock', () => {
+describe('Work with time', () => {
     //vai execultar uma vez antes de todos os testes
     before(() => {
         cy.visit('https://wcaquino.me/cypress/componentes.html')
@@ -22,7 +22,7 @@ describe('Work with Clock', () => {
 
     it.only('Goes to the future', () => {
         cy.get('#buttonTimePassed').click()
-        cy.get('#resultado > span').should('contain', '16253')
+        cy.get('#resultado > span').should('contain', '162')
         cy.get('#resultado > span').invoke('text').should('gt', '1625355587038')
 
         cy.clock()
