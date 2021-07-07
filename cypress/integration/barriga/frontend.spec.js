@@ -131,7 +131,7 @@ describe('Should test at a functional level', () => {
         .should('exist')
     })
     
-    it.only('Should get balance', () => {
+    it('Should get balance', () => {
         cy.route({
             method: 'GET',
             url: '/transacoes/**',
@@ -214,6 +214,13 @@ describe('Should test at a functional level', () => {
     })
 
     it('should remove a transaction', () => {
+        cy.route({
+            method: 'DELETE',
+            url: '/transacoes/**',
+            response: {},
+            status: 204
+        }).as('del')
+        
         cy.get(loc.MENU.EXTRATO).click()
         cy.xpath(loc.EXTRATO.FN_XP_REMOVER_ELEMENTO('Movimentacao para exclusao'))
             .click()
