@@ -46,7 +46,7 @@ describe('Should test at a functional level', () => {
     })
 
     
-    it.only('Should create an acount', () => {
+    it('Should create an acount', () => {
         cy.route({
             method: 'GET',
             url: '/contas',
@@ -95,11 +95,36 @@ describe('Should test at a functional level', () => {
         cy.get(loc.MESSAGE).should('contain', 'Conta inserida com sucesso')
     }) 
 
-    it('Alter acount', () => {
-        cy.acessarMenuConta()
+    it.only('Alter acount', () => {
+        cy.route({
+            method: 'GET',
+            url: '/contas',
+            response: [{
+                id: 1,
+                nome:"Carteira",
+                visivel:true,
+                usuario_id:1
+            },
+                {id:2,
+                nome:"Banco",
+                visivel:true,
+                usuario_id:1
+            }]
+        }).as('contas')
 
-        cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Conta para alterar')).click()
- 
+        cy.route({
+            method: 'PUT',
+            url: '/contas/**',
+            response: {
+                id: 1,
+                nome:"Conta para alterar",
+                visivel:true,
+                usuario_id:1
+            }
+        }).as('AlterarConta')
+
+        cy.acessarMenuConta()
+        cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Carteira')).click()
         cy.get(loc.CONTAS.NOME)
             .clear()
             .type('Conta para alterar')
